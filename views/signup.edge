@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>SignIn Form</title>
+    <title>Signup Form</title>
 
     <link
       rel="stylesheet"
@@ -20,8 +20,17 @@
         <div class="col-md-3"></div>
 
         <div class="col-md-6 main">
-          <form action="/user" method="post">
-            <h1>SignIn form</h1>
+          <form action="/sign_up" method="post">
+            <h1>Signup form</h1>
+
+            <input
+              class="box"
+              type="text"
+              name="name"
+              id="name"
+              placeholder="Name"
+              required
+            /><br />
 
             <input
               class="box"
@@ -38,6 +47,15 @@
               name="password"
               id="password"
               placeholder="Password "
+              required
+            /><br />
+
+            <input
+              class="box"
+              type="number"
+              name="balance"
+              id="balance"
+              placeholder="Balance"
               required
             /><br />
             <br />
