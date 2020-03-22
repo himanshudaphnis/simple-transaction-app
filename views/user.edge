@@ -9,16 +9,14 @@
       crossorigin="anonymous"
     />
   </head>
-
   <body>
     <h2>{{ User.name}}</h2>
-    <h3>{{User.email }}</h3>
-  <h3>{{ User.phone }}</h3>
+    <h3 id="x">{{User.email }}</h3>
+  <h3>{{ User.balance }}</h3>
   <br>
     <form action="/transfer" method="post">
           <h1>Transfer Money</h1>
-            <input type="email" name="from" value="{{ User.email }}" disabled>
-
+            <input type="text" id="sender" name="sender" readonly>
             <input
               class="box"
               type="email"
@@ -45,4 +43,8 @@
             /><br />
     </form>
   </body>
+  <script>
+  var x = document.getElementById("x").innerText;
+  document.getElementById("sender").value=x;
+</script>
 </html>

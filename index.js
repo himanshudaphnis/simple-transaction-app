@@ -27,13 +27,13 @@ app.post("/sign_up", function(req, res) {
   var name = req.body.name;
   var email = req.body.email;
   var pass = req.body.password;
-  var bal = req.body.bal;
+  var balance = Number(req.body.balance);
 
   var data = {
     name: name,
     email: email,
     password: pass,
-    bal: bal
+    balance: balance
   };
   db.collection("details").insertOne(data, function(err, collection) {
     if (err) throw err;
@@ -65,22 +65,23 @@ app.post("/user", async function(req, res) {
 });
 
 app.post("/transfer", async function(req, res) {
-  const from = req.body.from;
+  const sender = req.body.sender;
   const to = req.body.to;
   const amount = req.body.amount;
-  console.log(from);
-  const fromUser = await db.collection("details").findOne({ email: from });
-  const toUser = await db.collection("details").findOne({ email: to });
-
-  //console.log(fromUser);
-  // if (fromUser.password == pass) {
-  //   //   res.setHeader("Content-Type", "text/html");
-  //   //   res.redirect("/signin");
-  //   // window.location.href = "http://localhost:3000/signin";
-  //   res.render("user", {
-  //     User
-  //   });
-  //}
+  const fromUser = await db
+    .collection("details")
+    .findOneAndUpdate(
+      { email: sender },
+      { $inc: { balance: Number(-amount) } },
+      { new: true }
+    );
+  const toUser = await db
+    .collection("details")
+    .findOneAndUpdate(
+      { email: to },
+      { $inc: { balance: Number(amount) } },
+      { new: true }
+    );
   res.render("transfer");
 });
 
